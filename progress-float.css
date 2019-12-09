@@ -1,0 +1,41 @@
+/* let's try to use floating, because that should solve the spacing */
+ol.steps {
+	list-style: none;
+	padding-left: 0;
+  width: 90%;
+  margin: auto;
+}
+
+ol.steps > li {
+  float: left;
+  margin: 0;
+  text-align: center;
+  min-width: 10%;
+}
+
+/* clearfix - end floating on an empty content block */
+//ol.steps:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* but if we float, we really need a clearfix hack
+and to use it, our HTML becomes less semantic
+because we have to put a class on the ol in the HTML
+which is about layout, not content */
+
+/* clearfix styles */
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.clearfix {
+	*zoom: 1;
+}

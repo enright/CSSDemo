@@ -1,0 +1,113 @@
+
+ol.steps {
+	list-style: none;
+  margin: 0;
+	padding-left: 0;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+ol.steps > li {
+  display: table-cell;
+  text-align: center;
+  color: seagreen;
+  position: relative; /* allows absolute positioning *inside this block* */
+  counter-increment: stepNum;
+  height: 3em;
+}
+
+/* style the anchors */
+//ol.steps > li > a {
+  color: seagreen;
+	text-decoration: none;
+}
+
+/* style the anchors */
+ol.steps > li > a {
+  color: grey; /* an <a> without an href attribute will be grey */
+	text-decoration: none;
+	display: block; /* a is inline, so to make it take up width, lay out as block */
+}
+
+ol.steps > li.active > a {
+	color: seagreen;
+}
+
+ol.steps > li > a:link {
+  color: seagreen;
+}
+
+ol.steps > li > a:visited {
+  color: seagreen;
+}
+
+/* if we hover over an a with an href, it is clickable, so make
+the link look clickable */
+ol.steps > li > a[href]:hover {
+	font-weight: bold;
+	background-color: palegreen;
+	border-radius: 5px;
+}
+
+/* make the before element part of the anchor (not the li),
+and then it will be clickable */
+ol.steps > li > a:before {
+  content: '\2713'; /* unicode checkmark */
+  display: block; /* flow rule makes following content underneath so the <a> will be placed below the circle and check */
+	margin: 0 auto 4px; /* right left margins are auto and will center */
+  background-color: #fff;
+  width: 36px;
+  height: 36px;
+  line-height: 36px; /* this is a bug! see vertical alignment using line-height, you want lineheight bigger than font size */
+  text-align: center;
+  font-weight: bold;
+  border-width: 2px;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 50%; /* curve up the border! */
+	z-index: -1;
+}
+
+/* the active step should not be gray (may not have href) */
+ol.steps > li.active > a:before {
+	border-width: 2px;
+	background-color: palegreen;
+	border-color: seagreen;
+}
+
+/* the circles/checkmarks are green if there is a link (otherwise grey) */
+ol.steps > li > a[href]:before {
+  border-color: seagreen;
+}
+
+/* the content is not a checkmark, it is a counter
+if this is the active step or any li after the active step */
+ol.steps > li.active > a:before, ol.steps > li.active ~ li > a:before {
+  content: counter(stepNum);
+  font-family: inherit;
+  font-weight: 700;
+}
+
+/* after each list item, we use the box around empty content
+to draw a connecting line between the steps */
+ol.steps > li:after {
+  content: '';
+  height: 2px;
+  width: 100%;
+  background-color: seagreen;
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: -2; /* this puts the box behind the "before" element */
+}
+
+/* what follows after active element and each li thereafter is gray */
+ol.steps > li.furthest:after, ol.steps > li.furthest ~ li:after {
+  background-color: grey;
+}
+
+/* except for the last item, which has nothing following it */
+ol.steps > li:last-child:after {
+  display: none;
+}

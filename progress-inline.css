@@ -1,0 +1,16 @@
+/* if we use inline-block li then we get the 'whitespace' problem
+we would have to create crappy HTML (all list items with no whitespace in-between)
+in order to fix that */
+ol.steps {
+	list-style: none;
+	padding-left: 0;
+  width: 90%;
+  margin: auto;
+}
+
+ol.steps > li {
+  display: inline-block;
+  margin: 0;
+  text-align: center;
+  min-width: 10%;
+}

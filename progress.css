@@ -1,0 +1,80 @@
+
+ol.steps {
+	list-style: none;
+  margin: 0;
+	padding-left: 0;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+ol.steps > li {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  color: seagreen;
+  position: relative; /* allows absolute positioning *inside this block* */
+  counter-increment: stepNum;
+  height: 3em;
+}
+
+
+ol.steps > li:before {
+  content: '\2713'; /* unicode checkmark */
+  display: block; /* flow rule makes following content underneath so the <a> will be placed below the circle and check */
+  margin: 0 auto 4px; /* right left margins are auto and will center */
+  background-color: #fff;
+  width: 36px;
+  height: 36px;
+  line-height: 36px; /* this is a bug! see vertical alignment using line-height, you want lineheight bigger than font size */
+  text-align: center;
+  font-weight: bold;
+  border-width: 2px;
+  border-style: solid;
+  border-color: seagreen;
+  border-radius: 50%; /* curve up the border! */
+}
+
+/* if it's the list item with the "active" class, then the "before" pseudoelement
+will have the counter as content
+if it's the list item after the list item with the "active" class */
+ol.steps > li.active:before, ol.steps > li.active ~ li:before {
+  content: counter(stepNum);
+  font-family: inherit;
+  font-weight: 700;
+}
+
+/* after each list item, we use the box around empty content
+to draw a line between the steps */
+ol.steps > li:after {
+  content: '';
+  height: 2px;
+  width: 100%;
+  background-color: seagreen;
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: -1; /* this puts the box behind the "before" element */
+}
+
+/* what follows after active element and each li thereafter is gray */
+ol.steps > li.active:after, ol.steps > li.active ~ li:after {
+  background-color: #ededed;
+}
+
+/* except for the last item, which has nothing following it */
+ol.steps > li:last-child:after {
+  display: none;
+}
+
+//ol.steps > li.is-active:before {
+  background-color: #fff;
+  border-color: seagreen;
+}
+//ol.steps > li.is-active ~ li {
+  color: #808080;
+}
+//ol.steps > li.is-active ~ li:before {
+  background-color: #ededed;
+  border-color: #ededed;
+}
